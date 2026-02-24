@@ -2,181 +2,160 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Chimpancé Calc</title>
     <link rel="manifest" href="manifest.json">
     <style>
-    /* 1. Fondo general (Oscuro relajante) */
-    body {
-        background-color: #121212; /* Un gris casi negro */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
 
-    /* 2. El contenedor (La cara del mono) */
-    .calc-container {
-        background-color: #1e1e1e;
-        padding: 20px;
-        border-radius: 30px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        text-align: center;
-        width: 320px;
-    }
+        .calculator {
+            background-color: #1e1e1e;
+            width: 100%;
+            max-width: 330px; /* Tamaño ideal para que se vea estética */
+            padding: 25px;
+            border-radius: 45px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
 
-    /* 3. La pantalla (Donde se ve el número) */
-    #pantalla {
-        width: 90%;
-        height: 60px;
-        background-color: #252525;
-        border: none;
-        color: #FF9800; /* Naranja como el gato */
-        font-size: 32px;
-        text-align: right;
-        padding: 10px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-        outline: none;
-    }
+        .logo-container { text-align: center; margin-bottom: 10px; }
+        .logo-container img {
+            width: 65px; height: 65px;
+            border-radius: 50%;
+            border: 2px solid #f39c12;
+        }
 
-    /* 4. Estilo de los botones */
-    button {
-        width: 60px;
-        height: 60px;
-        margin: 5px;
-        border-radius: 50%; /* Botones redondos */
-        border: none;
-        font-size: 20px;
-        cursor: pointer;
-        background-color: #333333; /* Gris oscuro para números */
-        color: white;
-        transition: 0.2s;
-    }
+        #display {
+            width: 100%;
+            height: 70px;
+            background: transparent;
+            border: none;
+            color: #f39c12;
+            font-size: 3.2rem;
+            text-align: right;
+            margin-bottom: 15px;
+            outline: none;
+        }
 
-    /* Efecto al tocar el botón */
-    button:active {
-        transform: scale(0.9);
-        background-color: #444;
-    }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
 
-    /* 5. Colores especiales para operadores */
-    button[onclick*="clickBtn('+')"], 
-    button[onclick*="clickBtn('-')"], 
-    button[onclick*="clickBtn('*')"], 
-    button[onclick*="clickBtn('/')"] {
-        background-color: #2c2c2c;
-        color: #FF9800; /* Operadores en naranja */
-    }
+        button {
+            aspect-ratio: 1/1;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.4rem;
+            font-weight: bold;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            transition: background 0.1s, transform 0.1s;
+        }
 
-    /* El botón de IGUAL (=) es el protagonista */
-    #igual {
-        background-color: #FF9800;
-        color: white;
-        border-radius: 30px;
-        width: 135px; /* Más ancho */
-    }
+        /* EFECTO DE COLOR AL TOCAR */
+        button:active {
+            background: #f39c12 !important; /* Brilla en naranja al tocar */
+            color: white;
+            transform: scale(0.9);
+        }
 
-    .chimp-head {
-        margin-bottom: 15px;
-        opacity: 0.9;
-    }
-</style>
-    </head>
+        .operator { background: #444; color: #f39c12; }
+        
+        .equal {
+            background: #f39c12; /* Naranja Macacol */
+            color: white;
+            grid-column: span 2;
+            border-radius: 30px;
+            aspect-ratio: auto;
+        }
+
+        .clear { background: #c0392b; color: white; }
+    </style>
+</head>
 <body>
 
-    <div class="calc-container">
-        <div class="chimp-head">
-            <img src="./chimpance.jpg" alt="Icono Chimpancé" style="width: 80px; height: 80px; margin-bottom: 15px; border-radius: 50%;">
-        </div>
-
-        <input type="text" id="pantalla" readonly value="0">
-
-        <div class="botones">
-            <button onclick="limpiar()">C</button>
-            <button onclick="clickBtn('/')">÷</button>
-            <button onclick="clickBtn('*')">x</button>
-            <button onclick="borrar()">←</button>
-            <br>
-            <button onclick="clickBtn('7')">7</button>
-            <button onclick="clickBtn('8')">8</button>
-            <button onclick="clickBtn('9')">9</button>
-            <button onclick="clickBtn('-')">-</button>
-            <br>
-            <button onclick="clickBtn('4')">4</button>
-            <button onclick="clickBtn('5')">5</button>
-            <button onclick="clickBtn('6')">6</button>
-            <button onclick="clickBtn('+')">+</button>
-            <br>
-            <button onclick="clickBtn('1')">1</button>
-            <button onclick="clickBtn('2')">2</button>
-            <button onclick="clickBtn('3')">3</button>
-            <button id="igual" onclick="calcular()">=</button>
-            <br>
-            <button onclick="clickBtn('0')" style="width: 100px;">0</button>
-            <button onclick="clickBtn('.')">.</button>
-        </div>
+<div class="calculator">
+    <div class="logo-container">
+        <img src="chimpance.jpg" alt="Logo">
     </div>
+    <input type="text" id="display" readonly value="0">
+    <div class="buttons">
+        <button class="clear" onclick="clearDisplay()">C</button>
+        <button class="operator" onclick="appendToDisplay('/')">/</button>
+        <button class="operator" onclick="appendToDisplay('*')">×</button>
+        <button class="operator" onclick="deleteLast()">DEL</button>
+        
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button class="operator" onclick="appendToDisplay('-')">−</button>
+        
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button class="operator" onclick="appendToDisplay('+')">+</button>
+        
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button class="equal" onclick="calculate()" style="grid-row: span 2; aspect-ratio: auto;">=</button>
+        
+        <button onclick="appendToDisplay('0')" style="grid-column: span 2; border-radius: 30px; aspect-ratio: auto;">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+    </div>
+</div>
+
 <script>
-    const pantalla = document.getElementById('pantalla');
+    const display = document.getElementById('display');
 
-    // 1. ESCRIBIR EN PANTALLA
-    function clickBtn(valor) {
-    vibrar()
-        // Si hay un 0 inicial, lo quitamos para poner el nuevo número
-        if (pantalla.value === "0") {
-            pantalla.value = valor;
-        } else {
-            pantalla.value += valor;
+    function vibrate() {
+        if (navigator.vibrate) {
+            navigator.vibrate(40); // Vibración corta para feedback
         }
     }
 
-    // 2. LIMPIAR TODO (Botón C)
-    function limpiar() {
-        pantalla.value = "0";
+    function appendToDisplay(value) {
+        vibrate();
+        if (display.value === '0') display.value = value;
+        else display.value += value;
     }
 
-    // 3. BORRAR ÚLTIMO CARÁCTER (Botón ←)
-    function borrar() {
-        pantalla.value = pantalla.value.slice(0, -1);
-        if (pantalla.value === "") pantalla.value = "0";
+    function clearDisplay() {
+        vibrate();
+        display.value = '0';
     }
 
-    // 4. EL MOTOR DE CÁLCULO (Seguro)
-    function calcular() {
+    function deleteLast() {
+        vibrate();
+        display.value = display.value.slice(0, -1) || '0';
+    }
+
+    function calculate() {
+        vibrate();
         try {
-            // SEGURIDAD: Solo permitimos números y operadores básicos
-            // Esto evita que alguien ejecute código malicioso
-            const expresionSegura = pantalla.value.replace(/[^0-9+\-*/.]/g, '');
-            
-            // Calculamos el resultado
-            let resultado = eval(expresionSegura);
-
-            // Si el resultado tiene muchos decimales, lo cortamos a 2
-            if (!Number.isInteger(resultado)) {
-                resultado = resultado.toFixed(2);
-            }
-
-            pantalla.value = resultado;
-        } catch (error) {
-            pantalla.value = "Error";
-            setTimeout(limpiar, 1500); // Si hay error, se limpia en 1.5 seg
+            // Reemplazar símbolos visuales por matemáticos
+            let expression = display.value.replace('×', '*').replace('−', '-');
+            display.value = eval(expression);
+        } catch {
+            display.value = 'Error';
         }
     }
-    function vibrar() {
-    // Verifica si el celular soporta vibración
-    if (navigator.vibrate) {
-        // Vibra por 50 milisegundos (un toque rápido y elegante)
-        navigator.vibrate(50);
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
     }
-}
-function vibrar() {
-    if (navigator.vibrate) {
-        navigator.vibrate(50); // Vibra 50 milisegundos
-    }
-}
 </script>
+
 </body>
 </html>
