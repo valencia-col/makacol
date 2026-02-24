@@ -1,19 +1,23 @@
-const CACHE_NAME = 'macacol-v1';
-const ASSETS = [
+const CACHE_NAME = 'makacol-v1';
+const assets = [
   './',
   './index.html',
-  './chimpance.jpg',
-  './manifest.json'
+  './manifest.json',
+  './chimpance.jpg'
 ];
 
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(assets);
+    })
   );
 });
 
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    caches.match(e.request).then(response => response || fetch(e.request))
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
   );
 });
