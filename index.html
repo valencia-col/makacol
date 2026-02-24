@@ -113,3 +113,66 @@
         <button onclick="appendToDisplay('5')">5</button>
         <button onclick="appendToDisplay('6')">6</button>
         <button class="operator" onclick="appendToDisplay('+')">+</button>
+        
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button class="equal" onclick="calculate()">=</button>
+        
+        <button onclick="appendToDisplay('0')" style="grid-column: span 2; border-radius: 30px; aspect-ratio: auto;">0</button>
+        <button onclick="appendToDisplay('.')">.</button>
+    </div>
+</div>
+
+<div class="ad-container">
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:320px;height:50px"
+         data-ad-client="ca-pub-7707383885418601"
+         data-ad-slot="4692934061"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+<script>
+    const display = document.getElementById('display');
+
+    function vibrate() {
+        if (navigator.vibrate) {
+            navigator.vibrate(40); 
+        }
+    }
+
+    function appendToDisplay(value) {
+        vibrate();
+        if (display.value === '0') display.value = value;
+        else display.value += value;
+    }
+
+    function clearDisplay() {
+        vibrate();
+        display.value = '0';
+    }
+
+    function deleteLast() {
+        vibrate();
+        display.value = display.value.slice(0, -1) || '0';
+    }
+
+    function calculate() {
+        vibrate();
+        try {
+            let expression = display.value.replace('×', '*').replace('−', '-');
+            display.value = eval(expression);
+        } catch {
+            display.value = 'Error';
+        }
+    }
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js');
+    }
+</script>
+
+</body>
+</html>
