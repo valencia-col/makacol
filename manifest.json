@@ -3,7 +3,7 @@
   "short_name": "Macacol",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#1a1a1a",
+  "background_color": "#121212",
   "theme_color": "#ff9800",
   "icons": [
     {
@@ -15,7 +15,8 @@
     {
       "src": "./chimpance.jpg",
       "sizes": "512x512",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     }
   ]
 }
