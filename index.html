@@ -12,37 +12,37 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7707383885418601" crossorigin="anonymous"></script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
         body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; overflow: hidden; }
         
-        /* Contenedor de mensajes del mico */
-        #mensaje-mico { color: #f39c12; font-weight: bold; height: 20px; margin-bottom: 5px; font-size: 0.9rem; transition: opacity 0.5s; opacity: 0; }
+        /* Mensaje del mico con animación */
+        #mensaje-mico { color: #f39c12; font-weight: bold; height: 25px; margin-bottom: 8px; font-size: 1.1rem; transition: opacity 0.4s; opacity: 0; text-align: center; }
 
-        .calculator { background-color: #1e1e1e; width: 100%; max-width: 330px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 20px; position: relative; }
+        .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 20px; position: relative; border: 1px solid #333; }
         .logo-container { text-align: center; margin-bottom: 10px; cursor: pointer; }
-        .logo-container img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #f39c12; transition: transform 0.2s; }
-        .logo-container img:active { transform: scale(1.2); }
+        .logo-container img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #f39c12; box-shadow: 0 0 15px rgba(243, 156, 18, 0.3); transition: transform 0.2s; }
+        .logo-container img:active { transform: scale(1.15); }
 
-        /* Pantalla Ajustable */
-        #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3rem; text-align: right; outline: none; overflow-x: auto; white-space: nowrap; }
+        /* Pantalla Inteligente */
+        #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3.5rem; text-align: right; outline: none; transition: font-size 0.2s; }
 
-        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.5rem; font-weight: bold; background: #333; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; }
-        button:active { background: #f39c12 !important; transform: scale(0.9); }
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.6rem; font-weight: bold; background: #333; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 0 #1a1a1a; }
+        button:active { background: #f39c12 !important; transform: translateY(3px); box-shadow: none; }
         
         .operator { background: #444; color: #f39c12; }
         .clear { background: #c0392b; color: white; }
         
-        /* BOTONES REFORZADOS (Ya no son flacos) */
-        .wide-btn { grid-column: span 2; border-radius: 40px; aspect-ratio: auto; height: 65px; background: #333; }
-        .equal { background: #f39c12; color: white; }
+        /* BOTONES MUSCULOSOS */
+        .wide-btn { grid-column: span 2; border-radius: 35px; aspect-ratio: auto; height: 65px; }
+        .equal { background: #f39c12; color: white; box-shadow: 0 4px 0 #d35400; }
 
-        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 10px; }
+        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; border: 1px dashed #444; }
     </style>
 </head>
 <body>
 
-<div id="mensaje-mico">¡Cree en ti!</div>
+<div id="mensaje-mico"></div>
 
 <div class="calculator">
     <div class="logo-container" onclick="hablarMico()">
@@ -51,7 +51,7 @@
     <input type="text" id="display" readonly value="0">
     <div class="buttons">
         <button class="clear" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="appendToDisplay('/')">/</button>
+        <button class="operator" onclick="appendToDisplay('/')">÷</button>
         <button class="operator" onclick="appendToDisplay('*')">×</button>
         <button class="operator" onclick="deleteLast()">DEL</button>
         
@@ -84,13 +84,11 @@
     const display = document.getElementById('display');
     const mensajeDiv = document.getElementById('mensaje-mico');
     
-    // Detectar si el celular está en portugués
-    const esPortugues = navigator.language.startsWith('pt');
-
-    // Definir frases según el idioma
-    let frases = esPortugues 
-        ? ["Você é importante!", "Acredite em você!", "Hoje é seu dia!", "Soma sucessos!"] 
-        : ["¡Eres importante!", "¡Cree en ti!", "¡Hoy es tu día!", "¡Suma éxitos!"];
+    // DETECTOR DE IDIOMA (Traductor Automático)
+    const esPT = navigator.language.startsWith('pt');
+    const frases = esPT 
+        ? ["Você é importante!", "Acredite em você!", "Sucesso garantido!", "Soma vitórias!"] 
+        : ["¡Eres importante!", "¡Cree en ti!", "¡Suma éxitos!", "¡Hoy es tu día!"];
     
     let indiceFrase = 0;
 
@@ -99,37 +97,49 @@
         mensajeDiv.innerText = frases[indiceFrase];
         mensajeDiv.style.opacity = 1;
         indiceFrase = (indiceFrase + 1) % frases.length;
-        setTimeout(() => { mensajeDiv.style.opacity = 0; }, 2000);
+        setTimeout(() => { mensajeDiv.style.opacity = 0; }, 2500);
     }
 
-    function vibrate() { if (navigator.vibrate) navigator.vibrate(40); }
+    function vibrate() { if (navigator.vibrate) navigator.vibrate(45); }
 
     function appendToDisplay(value) {
         vibrate();
         if (display.value === '0') display.value = value;
         else display.value += value;
-        ajustarTexto();
+        ajustarFuente();
     }
 
-    function ajustarTexto() {
-        if (display.value.length > 8) display.style.fontSize = "1.8rem";
-        else display.style.fontSize = "3rem";
+    // PANTALLA INFINITA: La letra se achica si el número es largo
+    function ajustarFuente() {
+        let largo = display.value.length;
+        if (largo > 12) display.style.fontSize = "1.5rem";
+        else if (largo > 8) display.style.fontSize = "2.2rem";
+        else display.style.fontSize = "3.5rem";
     }
 
-    function clearDisplay() { vibrate(); display.value = '0'; ajustarTexto(); }
-    function deleteLast() { vibrate(); display.value = display.value.slice(0, -1) || '0'; ajustarTexto(); }
+    function clearDisplay() { vibrate(); display.value = '0'; ajustarFuente(); }
+    function deleteLast() { vibrate(); display.value = display.value.slice(0, -1) || '0'; ajustarFuente(); }
 
     function calculate() {
         vibrate();
         try {
-            let res = eval(display.value.replace('×', '*').replace('−', '-'));
-            display.value = Number(res.toFixed(8)); // Máximo 8 decimales para que no se desborde
-            ajustarTexto();
-        } catch { display.value = 'Error'; }
+            // Reemplaza los símbolos visuales por los que entiende el código
+            let operacion = display.value.replace('×', '*').replace('−', '-').replace('÷', '/');
+            let resultado = eval(operacion);
+            // Limita a 8 decimales para que no rompa la pantalla
+            display.value = Number(resultado.toFixed(8));
+            ajustarFuente();
+        } catch {
+            display.value = 'Error';
+            setTimeout(clearDisplay, 1500);
+        }
     }
 
+    // Registro del motor de la App (Service Worker)
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); });
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js');
+        });
     }
 </script>
 </body>
