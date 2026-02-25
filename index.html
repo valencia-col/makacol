@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QEGYFKYQD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7QEGYFKYQD');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Macacol</title>
@@ -14,33 +22,23 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', sans-serif; }
         body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
-        
         #mensaje-mico { color: #f39c12; font-weight: bold; height: 25px; margin-bottom: 8px; font-size: 1.1rem; transition: opacity 0.4s; opacity: 0; text-align: center; }
-
         .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 15px; border: 1px solid #333; }
         .logo-container { text-align: center; margin-bottom: 10px; cursor: pointer; }
         .logo-container img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #f39c12; transition: transform 0.2s; }
         .logo-container img:active { transform: scale(1.15); }
-
         #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3.5rem; text-align: right; outline: none; }
-
         .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
         button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.6rem; font-weight: bold; background: #333; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 0 #1a1a1a; }
         button:active { background: #f39c12 !important; transform: translateY(3px); box-shadow: none; }
-        
         .operator { background: #444; color: #f39c12; }
         .clear { background: #c0392b; color: white; }
         .wide-btn { grid-column: span 2; border-radius: 35px; aspect-ratio: auto; height: 65px; }
         .equal { background: #f39c12; color: white; box-shadow: 0 4px 0 #d35400; }
-
         .donation-btn { margin-top: 15px; background: #ffffff; color: #000; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; transition: transform 0.2s; }
-        .donation-btn:active { transform: scale(0.95); }
-
-        /* ESTILO MARCA VALENCIA COL */
         .footer-brand { margin-top: 20px; text-align: center; opacity: 0.6; }
         .footer-brand p { font-size: 0.75rem; letter-spacing: 1px; color: #888; text-transform: uppercase; }
         .footer-brand span { color: #f39c12; font-weight: bold; }
-
         .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-top: 15px; }
     </style>
 </head>
@@ -78,7 +76,6 @@
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=felipinhotocantins@gmail.com&item_name=Apoyo+a+Macacol&currency_code=USD&source=url" target="_blank" class="donation-btn" id="btn-cafe">
     <span>☕</span> <span id="texto-cafe">Invítame un café</span>
 </a>
-</a>
 
 <div class="footer-brand">
     <p>© 2026 <span>Valencia Col</span> | Innovative Solutions</p>
@@ -93,14 +90,11 @@
     const display = document.getElementById('display');
     const mensajeDiv = document.getElementById('mensaje-mico');
     const textoCafe = document.getElementById('texto-cafe');
-    
     const esPT = navigator.language.startsWith('pt');
     const frases = esPT 
         ? ["Você é importante!", "Acredite em você!", "Sucesso!", "Soma vitórias!"] 
         : ["¡Eres importante!", "¡Cree en ti!", "¡Suma éxitos!", "¡Hoy es tu día!"];
-    
     textoCafe.innerText = esPT ? "Pague um café ☕" : "Invítame un café ☕";
-    
     let indiceFrase = 0;
 
     function hablarMico() {
@@ -111,10 +105,8 @@
         setTimeout(() => { mensajeDiv.style.opacity = 0; }, 2500);
     }
 
-    function vibrate() { if (navigator.vibrate) navigator.vibrate(45); }
-
     function appendToDisplay(value) {
-        vibrate();
+        if (navigator.vibrate) navigator.vibrate(45);
         if (display.value === '0') display.value = value;
         else display.value += value;
         ajustarFuente();
@@ -127,11 +119,10 @@
         else display.style.fontSize = "3.5rem";
     }
 
-    function clearDisplay() { vibrate(); display.value = '0'; ajustarFuente(); }
-    function deleteLast() { vibrate(); display.value = display.value.slice(0, -1) || '0'; ajustarFuente(); }
+    function clearDisplay() { display.value = '0'; ajustarFuente(); }
+    function deleteLast() { display.value = display.value.slice(0, -1) || '0'; ajustarFuente(); }
 
     function calculate() {
-        vibrate();
         try {
             let operacion = display.value.replace('×', '*').replace('−', '-').replace('÷', '/');
             let resultado = eval(operacion);
