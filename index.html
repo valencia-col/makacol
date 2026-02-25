@@ -4,36 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Macacol</title>
-    
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="chimpance.jpg">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="theme-color" content="#ff9800">
-    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7707383885418601" crossorigin="anonymous"></script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; }
-        .calculator { background-color: #1e1e1e; width: 100%; max-width: 330px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 20px; }
-        .logo-container { text-align: center; margin-bottom: 10px; }
-        .logo-container img { width: 60px; height: 60px; border-radius: 50%; border: 2px solid #f39c12; }
-        #display { width: 100%; height: 70px; background: transparent; border: none; color: #f39c12; font-size: 3.2rem; text-align: right; margin-bottom: 15px; outline: none; }
-        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-        button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.4rem; font-weight: bold; background: #333; color: white; cursor: pointer; transition: background 0.1s, transform 0.1s; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: sans-serif; }
+        body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; overflow: hidden; }
+        
+        /* Contenedor de mensajes del mico */
+        #mensaje-mico { color: #f39c12; font-weight: bold; height: 20px; margin-bottom: 5px; font-size: 0.9rem; transition: opacity 0.5s; opacity: 0; }
+
+        .calculator { background-color: #1e1e1e; width: 100%; max-width: 330px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); margin-bottom: 20px; position: relative; }
+        .logo-container { text-align: center; margin-bottom: 10px; cursor: pointer; }
+        .logo-container img { width: 70px; height: 70px; border-radius: 50%; border: 3px solid #f39c12; transition: transform 0.2s; }
+        .logo-container img:active { transform: scale(1.2); }
+
+        /* Pantalla Ajustable */
+        #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3rem; text-align: right; outline: none; overflow-x: auto; white-space: nowrap; }
+
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+        button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.5rem; font-weight: bold; background: #333; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; }
         button:active { background: #f39c12 !important; transform: scale(0.9); }
+        
         .operator { background: #444; color: #f39c12; }
-        .equal { background: #f39c12; color: white; grid-column: span 2; border-radius: 30px; aspect-ratio: auto; }
         .clear { background: #c0392b; color: white; }
-        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 10px; overflow: hidden; }
+        
+        /* BOTONES REFORZADOS (Ya no son flacos) */
+        .wide-btn { grid-column: span 2; border-radius: 40px; aspect-ratio: auto; height: 65px; background: #333; }
+        .equal { background: #f39c12; color: white; }
+
+        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 10px; }
     </style>
 </head>
 <body>
 
+<div id="mensaje-mico">¡Cree en ti!</div>
+
 <div class="calculator">
-    <div class="logo-container">
-        <img src="chimpance.jpg" alt="Logo">
+    <div class="logo-container" onclick="hablarMico()">
+        <img src="chimpance.jpg" alt="Macacol">
     </div>
     <input type="text" id="display" readonly value="0">
     <div class="buttons">
@@ -41,20 +54,24 @@
         <button class="operator" onclick="appendToDisplay('/')">/</button>
         <button class="operator" onclick="appendToDisplay('*')">×</button>
         <button class="operator" onclick="deleteLast()">DEL</button>
+        
         <button onclick="appendToDisplay('7')">7</button>
         <button onclick="appendToDisplay('8')">8</button>
         <button onclick="appendToDisplay('9')">9</button>
         <button class="operator" onclick="appendToDisplay('-')">−</button>
+        
         <button onclick="appendToDisplay('4')">4</button>
         <button onclick="appendToDisplay('5')">5</button>
         <button onclick="appendToDisplay('6')">6</button>
         <button class="operator" onclick="appendToDisplay('+')">+</button>
+        
         <button onclick="appendToDisplay('1')">1</button>
         <button onclick="appendToDisplay('2')">2</button>
         <button onclick="appendToDisplay('3')">3</button>
-        <button class="equal" onclick="calculate()">=</button>
-        <button onclick="appendToDisplay('0')" style="grid-column: span 2; border-radius: 30px; aspect-ratio: auto;">0</button>
         <button onclick="appendToDisplay('.')">.</button>
+        
+        <button class="wide-btn" onclick="appendToDisplay('0')">0</button>
+        <button class="wide-btn equal" onclick="calculate()">=</button>
     </div>
 </div>
 
@@ -65,16 +82,46 @@
 
 <script>
     const display = document.getElementById('display');
+    const mensajeDiv = document.getElementById('mensaje-mico');
+    let frases = ["¡Eres importante!", "¡Cree en ti!", "¡Hoy es tu día!", "¡Suma éxitos!"];
+    let indiceFrase = 0;
+
+    function hablarMico() {
+        if (navigator.vibrate) navigator.vibrate(100);
+        mensajeDiv.innerText = frases[indiceFrase];
+        mensajeDiv.style.opacity = 1;
+        indiceFrase = (indiceFrase + 1) % frases.length;
+        setTimeout(() => { mensajeDiv.style.opacity = 0; }, 2000);
+    }
+
     function vibrate() { if (navigator.vibrate) navigator.vibrate(40); }
-    function appendToDisplay(value) { vibrate(); if (display.value === '0') display.value = value; else display.value += value; }
-    function clearDisplay() { vibrate(); display.value = '0'; }
-    function deleteLast() { vibrate(); display.value = display.value.slice(0, -1) || '0'; }
-    function calculate() { vibrate(); try { display.value = eval(display.value.replace('×', '*').replace('−', '-')); } catch { display.value = 'Error'; } }
+
+    function appendToDisplay(value) {
+        vibrate();
+        if (display.value === '0') display.value = value;
+        else display.value += value;
+        ajustarTexto();
+    }
+
+    function ajustarTexto() {
+        if (display.value.length > 8) display.style.fontSize = "1.8rem";
+        else display.style.fontSize = "3rem";
+    }
+
+    function clearDisplay() { vibrate(); display.value = '0'; ajustarTexto(); }
+    function deleteLast() { vibrate(); display.value = display.value.slice(0, -1) || '0'; ajustarTexto(); }
+
+    function calculate() {
+        vibrate();
+        try {
+            let res = eval(display.value.replace('×', '*').replace('−', '-'));
+            display.value = Number(res.toFixed(8)); // Máximo 8 decimales para que no se desborde
+            ajustarTexto();
+        } catch { display.value = 'Error'; }
+    }
 
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('./sw.js');
-        });
+        window.addEventListener('load', () => { navigator.serviceWorker.register('./sw.js'); });
     }
 </script>
 </body>
