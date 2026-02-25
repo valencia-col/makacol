@@ -12,19 +12,17 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7707383885418601" crossorigin="anonymous"></script>
 
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
-        body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; overflow: hidden; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; font-family: 'Segoe UI', sans-serif; }
+        body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
         
-        /* Mensaje del mico con animación */
         #mensaje-mico { color: #f39c12; font-weight: bold; height: 25px; margin-bottom: 8px; font-size: 1.1rem; transition: opacity 0.4s; opacity: 0; text-align: center; }
 
-        .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 20px; position: relative; border: 1px solid #333; }
+        .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 15px; border: 1px solid #333; }
         .logo-container { text-align: center; margin-bottom: 10px; cursor: pointer; }
-        .logo-container img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #f39c12; box-shadow: 0 0 15px rgba(243, 156, 18, 0.3); transition: transform 0.2s; }
+        .logo-container img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #f39c12; transition: transform 0.2s; }
         .logo-container img:active { transform: scale(1.15); }
 
-        /* Pantalla Inteligente */
-        #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3.5rem; text-align: right; outline: none; transition: font-size 0.2s; }
+        #display { width: 100%; height: 80px; background: transparent; border: none; color: #f39c12; font-size: 3.5rem; text-align: right; outline: none; }
 
         .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
         button { aspect-ratio: 1/1; border-radius: 50%; border: none; font-size: 1.6rem; font-weight: bold; background: #333; color: white; cursor: pointer; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 0 #1a1a1a; }
@@ -32,12 +30,14 @@
         
         .operator { background: #444; color: #f39c12; }
         .clear { background: #c0392b; color: white; }
-        
-        /* BOTONES MUSCULOSOS */
         .wide-btn { grid-column: span 2; border-radius: 35px; aspect-ratio: auto; height: 65px; }
         .equal { background: #f39c12; color: white; box-shadow: 0 4px 0 #d35400; }
 
-        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; border: 1px dashed #444; }
+        /* Estilo del botón de donación */
+        .donation-btn { margin-top: 15px; background: #ffffff; color: #000; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.2s; }
+        .donation-btn:active { transform: scale(0.95); }
+
+        .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-top: 15px; }
     </style>
 </head>
 <body>
@@ -54,26 +54,26 @@
         <button class="operator" onclick="appendToDisplay('/')">÷</button>
         <button class="operator" onclick="appendToDisplay('*')">×</button>
         <button class="operator" onclick="deleteLast()">DEL</button>
-        
         <button onclick="appendToDisplay('7')">7</button>
         <button onclick="appendToDisplay('8')">8</button>
         <button onclick="appendToDisplay('9')">9</button>
         <button class="operator" onclick="appendToDisplay('-')">−</button>
-        
         <button onclick="appendToDisplay('4')">4</button>
         <button onclick="appendToDisplay('5')">5</button>
         <button onclick="appendToDisplay('6')">6</button>
         <button class="operator" onclick="appendToDisplay('+')">+</button>
-        
         <button onclick="appendToDisplay('1')">1</button>
         <button onclick="appendToDisplay('2')">2</button>
         <button onclick="appendToDisplay('3')">3</button>
         <button onclick="appendToDisplay('.')">.</button>
-        
         <button class="wide-btn" onclick="appendToDisplay('0')">0</button>
         <button class="wide-btn equal" onclick="calculate()">=</button>
     </div>
 </div>
+
+<a href="https://www.paypal.com" target="_blank" class="donation-btn" id="btn-cafe">
+    <span>☕</span> <span id="texto-cafe">Apoya mi proyecto</span>
+</a>
 
 <div class="ad-container">
     <ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-7707383885418601" data-ad-slot="4692934061"></ins>
@@ -83,12 +83,16 @@
 <script>
     const display = document.getElementById('display');
     const mensajeDiv = document.getElementById('mensaje-mico');
+    const textoCafe = document.getElementById('texto-cafe');
     
-    // DETECTOR DE IDIOMA (Traductor Automático)
+    // TRADUCTOR AUTOMÁTICO
     const esPT = navigator.language.startsWith('pt');
     const frases = esPT 
-        ? ["Você é importante!", "Acredite em você!", "Sucesso garantido!", "Soma vitórias!"] 
+        ? ["Você é importante!", "Acredite em você!", "Sucesso!", "Soma vitórias!"] 
         : ["¡Eres importante!", "¡Cree en ti!", "¡Suma éxitos!", "¡Hoy es tu día!"];
+    
+    // Cambiar texto del botón de café según idioma
+    textoCafe.innerText = esPT ? "Pague um café ☕" : "Invítame un café ☕";
     
     let indiceFrase = 0;
 
@@ -109,7 +113,6 @@
         ajustarFuente();
     }
 
-    // PANTALLA INFINITA: La letra se achica si el número es largo
     function ajustarFuente() {
         let largo = display.value.length;
         if (largo > 12) display.style.fontSize = "1.5rem";
@@ -123,10 +126,8 @@
     function calculate() {
         vibrate();
         try {
-            // Reemplaza los símbolos visuales por los que entiende el código
             let operacion = display.value.replace('×', '*').replace('−', '-').replace('÷', '/');
             let resultado = eval(operacion);
-            // Limita a 8 decimales para que no rompa la pantalla
             display.value = Number(resultado.toFixed(8));
             ajustarFuente();
         } catch {
@@ -135,7 +136,6 @@
         }
     }
 
-    // Registro del motor de la App (Service Worker)
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js');
