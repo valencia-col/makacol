@@ -33,7 +33,6 @@
         .wide-btn { grid-column: span 2; border-radius: 35px; aspect-ratio: auto; height: 65px; }
         .equal { background: #f39c12; color: white; box-shadow: 0 4px 0 #d35400; }
 
-        /* Estilo del botón de donación */
         .donation-btn { margin-top: 15px; background: #ffffff; color: #000; padding: 10px 20px; border-radius: 25px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(255,255,255,0.1); transition: transform 0.2s; }
         .donation-btn:active { transform: scale(0.95); }
 
@@ -74,8 +73,6 @@
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=felipinhotocantins@gmail.com&item_name=Apoyo+a+Macacol&currency_code=USD" target="_blank" class="donation-btn" id="btn-cafe">
     <span>☕</span> <span id="texto-cafe">Invítame un café</span>
 </a>
-    <span>☕</span> <span id="texto-cafe">Apoya mi proyecto</span>
-</a>
 
 <div class="ad-container">
     <ins class="adsbygoogle" style="display:inline-block;width:320px;height:50px" data-ad-client="ca-pub-7707383885418601" data-ad-slot="4692934061"></ins>
@@ -87,13 +84,11 @@
     const mensajeDiv = document.getElementById('mensaje-mico');
     const textoCafe = document.getElementById('texto-cafe');
     
-    // TRADUCTOR AUTOMÁTICO
     const esPT = navigator.language.startsWith('pt');
     const frases = esPT 
         ? ["Você é importante!", "Acredite em você!", "Sucesso!", "Soma vitórias!"] 
         : ["¡Eres importante!", "¡Cree en ti!", "¡Suma éxitos!", "¡Hoy es tu día!"];
     
-    // Cambiar texto del botón de café según idioma
     textoCafe.innerText = esPT ? "Pague um café ☕" : "Invítame un café ☕";
     
     let indiceFrase = 0;
