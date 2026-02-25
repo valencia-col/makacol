@@ -83,7 +83,15 @@
 <script>
     const display = document.getElementById('display');
     const mensajeDiv = document.getElementById('mensaje-mico');
-    let frases = ["¡Eres importante!", "¡Cree en ti!", "¡Hoy es tu día!", "¡Suma éxitos!"];
+    
+    // Detectar si el celular está en portugués
+    const esPortugues = navigator.language.startsWith('pt');
+
+    // Definir frases según el idioma
+    let frases = esPortugues 
+        ? ["Você é importante!", "Acredite em você!", "Hoje é seu dia!", "Soma sucessos!"] 
+        : ["¡Eres importante!", "¡Cree en ti!", "¡Hoy es tu día!", "¡Suma éxitos!"];
+    
     let indiceFrase = 0;
 
     function hablarMico() {
