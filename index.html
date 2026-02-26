@@ -40,6 +40,27 @@
         .footer-brand p { font-size: 0.75rem; letter-spacing: 1px; color: #888; text-transform: uppercase; }
         .footer-brand span { color: #f39c12; font-weight: bold; }
         .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-top: 15px; }
+        /* Ajuste para pantallas pequeñas (Celulares cortos) */
+@media (max-height: 700px) {
+    .monkey-container img {
+        max-width: 80px !important; /* El mico se hace más pequeño */
+        margin-top: 5px !important;
+    }
+    
+    .phrase-container {
+        font-size: 0.9rem !important; /* La frase se ajusta un poco */
+        margin-bottom: 5px !important;
+    }
+
+    .calculator {
+        transform: scale(0.9); /* Encoge la calculadora un 10% para ganar espacio */
+        margin-top: -10px !important;
+    }
+
+    .coffee-button {
+        padding: 8px 15px !important; /* El botón de café se hace más compacto */
+    }
+            }
     </style>
 </head>
 <body>
