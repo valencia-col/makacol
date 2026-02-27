@@ -41,26 +41,31 @@
         .footer-brand span { color: #f39c12; font-weight: bold; }
         .ad-container { width: 100%; max-width: 320px; min-height: 50px; background: #1e1e1e; display: flex; justify-content: center; align-items: center; border-radius: 12px; margin-top: 15px; }
         /* Ajuste para pantallas pequeñas (Celulares cortos) */
-@media (max-height: 700px) {
-    .monkey-container img {
-        max-width: 80px !important; /* El mico se hace más pequeño */
-        margin-top: 5px !important;
-    }
-    
-    .phrase-container {
-        font-size: 0.9rem !important; /* La frase se ajusta un poco */
-        margin-bottom: 5px !important;
-    }
-
-    .calculator {
-        transform: scale(0.9); /* Encoge la calculadora un 10% para ganar espacio */
-        margin-top: -10px !important;
-    }
-
-    .coffee-button {
-        padding: 8px 15px !important; /* El botón de café se hace más compacto */
-    }
+        @media (max-height: 700px) {
+            .logo-container img {
+                max-width: 60px !important;
+                height: 60px !important;
+                margin-top: 0px !important;
             }
+            .calculator {
+                background-color: #1e1e1e;
+                width: 100%;
+                max-width: 340px;
+                padding: 25px;
+                border-radius: 45px;
+                box-shadow: 0 20px 50px rgba(0,0,0,0.9);
+                margin-bottom: 5px;
+                border: 1px solid #333;
+            }
+            .donation-btn {
+                margin-top: 5px;
+                background: #ffffff;
+                color: #000;
+                padding: 10px 20px;
+                border-radius: 25px;
+           }
+            }
+        }
     </style>
 </head>
 <body>
@@ -74,22 +79,23 @@
     <input type="text" id="display" readonly value="0">
     <div class="buttons">
         <button class="clear" onclick="clearDisplay()">C</button>
-        <button class="operator" onclick="appendToDisplay('/')">÷</button>
-        <button class="operator" onclick="appendToDisplay('*')">×</button>
-        <button class="operator" onclick="deleteLast()">DEL</button>
+        <button class="operator" onclick="appendOperator('%')">%</button>
+        <button class="operator" onclick="appendOperator('/')">÷</button>
+        <button class="operator" onclick="appendOperator('*')">×</button>
         <button onclick="appendToDisplay('7')">7</button>
         <button onclick="appendToDisplay('8')">8</button>
         <button onclick="appendToDisplay('9')">9</button>
-        <button class="operator" onclick="appendToDisplay('-')">−</button>
+        <button class="operator" onclick="appendOperator('-')">−</button>
         <button onclick="appendToDisplay('4')">4</button>
         <button onclick="appendToDisplay('5')">5</button>
         <button onclick="appendToDisplay('6')">6</button>
-        <button class="operator" onclick="appendToDisplay('+')">+</button>
+        <button class="operator" onclick="appendOperator('+')">+</button>
         <button onclick="appendToDisplay('1')">1</button>
         <button onclick="appendToDisplay('2')">2</button>
         <button onclick="appendToDisplay('3')">3</button>
+        <button class="operator" onclick="deleteLast()">DEL</button>
+        <button onclick="appendToDisplay('0')">0</button>
         <button onclick="appendToDisplay('.')">.</button>
-        <button class="wide-btn" onclick="appendToDisplay('0')">0</button>
         <button class="wide-btn equal" onclick="calculate()">=</button>
     </div>
 </div>
@@ -117,6 +123,9 @@
         : ["¡Eres importante!", "¡Cree en ti!", "¡Suma éxitos!", "¡Hoy es tu día!"];
     textoCafe.innerText = esPT ? "Pague um café ☕" : "Invítame un café ☕";
     let indiceFrase = 0;
+    
+    // VARIABLE NUEVA PARA CONTROLAR LOS SIGNOS
+    let lastCharIsOperator = false;
 
     function hablarMico() {
         if (navigator.vibrate) navigator.vibrate(100);
@@ -130,6 +139,26 @@
         if (navigator.vibrate) navigator.vibrate(45);
         if (display.value === '0') display.value = value;
         else display.value += value;
+        
+        lastCharIsOperator = false; // Se ingresó un número, ya no termina en operador
+        ajustarFuente();
+    }
+
+    // FUNCION NUEVA PARA MANEJAR SIGNOS (+, -, *, /, %)
+    function appendOperator(operator) {
+        if (navigator.vibrate) navigator.vibrate(45);
+        
+        if (display.value === '0' && operator !== '-') return;
+
+        if (lastCharIsOperator) {
+            // Si ya era operador, reemplaza el último
+            display.value = display.value.slice(0, -1) + operator;
+        } else {
+            // Si no era, lo agrega
+            display.value += operator;
+        }
+        
+        lastCharIsOperator = true;
         ajustarFuente();
     }
 
@@ -140,14 +169,38 @@
         else display.style.fontSize = "3.5rem";
     }
 
-    function clearDisplay() { display.value = '0'; ajustarFuente(); }
-    function deleteLast() { display.value = display.value.slice(0, -1) || '0'; ajustarFuente(); }
+    function clearDisplay() { 
+        display.value = '0';
+        lastCharIsOperator = false;
+        ajustarFuente(); 
+    }
+    
+    function deleteLast() { 
+        display.value = display.value.slice(0, -1) || '0';
+        // Verificamos si el nuevo último caracter es operador
+        let ultimo = display.value.slice(-1);
+        lastCharIsOperator = (ultimo === '+' || ultimo === '-' || ultimo === '*' || ultimo === '/' || ultimo === '%');
+        ajustarFuente(); 
+    }
 
     function calculate() {
         try {
-            let operacion = display.value.replace('×', '*').replace('−', '-').replace('÷', '/');
+            // Reemplazamos los signos visuales por los reales de programacion y % por /100
+            let operacion = display.value
+                .replace('×', '*')
+                .replace('−', '-')
+                .replace('÷', '/')
+                .replace('%', '/100');
+                
             let resultado = eval(operacion);
+            
+            // Verificacion de error
+            if (resultado === undefined || isNaN(resultado) || !isFinite(resultado)) {
+                throw new Error("Invalid");
+            }
+            
             display.value = Number(resultado.toFixed(8));
+            lastCharIsOperator = false;
             ajustarFuente();
         } catch {
             display.value = 'Error';
