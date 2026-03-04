@@ -3,7 +3,7 @@ const urlsToCache = [
   '/',
   'index.html',
   'donar.html',
-  'privacidade.html',
+  'privacidad.html',
   'manifest.json',
   'chimpance.jpg'
 ];
