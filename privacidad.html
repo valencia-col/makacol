@@ -1,33 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Política de Privacidad / Privacidade</title>
+    <title>Privacy Policy - Macacol</title>
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; color: #333; }
-        h1 { color: #2c3e50; }
-        hr { border: 0; border-top: 1px solid #ccc; margin: 20px 0; }
-        .lang-section { margin-bottom: 30px; }
+        body { background: #121212; color: #bbb; font-family: sans-serif; padding: 30px; line-height: 1.6; }
+        .container { max-width: 600px; margin: auto; background: #1e1e1e; padding: 25px; border-radius: 20px; border: 1px solid #333; }
+        h1 { color: #f39c12; font-size: 1.5rem; text-align: center; }
+        h2 { color: #fff; font-size: 1.1rem; margin-top: 20px; }
+        p { font-size: 0.9rem; }
+        .btn-volver { display: block; width: 100%; padding: 12px; background: #444; color: white; text-align: center; text-decoration: none; border-radius: 10px; margin-top: 25px; font-weight: bold; }
     </style>
 </head>
 <body>
-
-    <div class="lang-section">
-        <h1>Política de Privacidad</h1>
-        <p>En <strong>Calculadora Macacol</strong>, la privacidad de nuestros visitantes es de extrema importancia.</p>
-        <p>Esta aplicación no recopila información personal identificable. Solo utilizamos herramientas de terceros como <strong>Google AdSense</strong> y <strong>Google Analytics</strong> para mostrar anuncios y analizar el tráfico de forma anónima.</p>
-        <p>Al usar esta calculadora, usted acepta el uso de cookies para mejorar su experiencia.</p>
+    <div class="container">
+        <h1 id="poly-title">Política de Privacidad</h1>
+        <div id="poly-content"></div>
+        <a href="index.html" class="btn-volver" id="poly-btn">Volver / Voltar</a>
     </div>
 
-    <hr> <div class="lang-section">
-        <h1>Política de Privacidade</h1>
-        <p>Na <strong>Calculadora Macacol</strong>, a privacidade dos nossos visitantes é de extrema importância.</p>
-        <p>Este aplicativo não coleta informações pessoais identificáveis. Utilizamos apenas ferramentas de terceiros, como o <strong>Google AdSense</strong> e o <strong>Google Analytics</strong>, para exibir anúncios e analisar o tráfego de forma anônima.</p>
-        <p>Ao usar esta calculadora, você concorda com o uso de cookies para melhorar sua experiência.</p>
-    </div>
+    <script>
+        const userLang = navigator.language || navigator.userLanguage;
+        const isPT = userLang.startsWith('pt');
 
-    <br>
-    <a href="index.html">Volver / Voltar</a>
+        const texts = {
+            es: {
+                title: "Política de Privacidad",
+                content: `
+                    <h2>1. Información General</h2>
+                    <p>Macacol, desarrollada por Valencia Col, es una aplicación de calculadora diseñada para ser simple y segura.</p>
+                    <h2>2. Datos del Usuario</h2>
+                    <p>No recopilamos, almacenamos ni compartimos datos personales, ubicación o contactos del usuario.</p>
+                    <h2>3. Publicidad y Analítica</h2>
+                    <p>Utilizamos servicios de terceros (Google) para mostrar publicidad y analizar el rendimiento básico de la app, cumpliendo con las normas de seguridad.</p>
+                    <h2>4. Donaciones</h2>
+                    <p>Las donaciones son voluntarias y se procesan de forma externa y segura.</p>
+                `,
+                btn: "Volver a la calculadora"
+            },
+            pt: {
+                title: "Política de Privacidade",
+                content: `
+                    <h2>1. Informações Gerais</h2>
+                    <p>O Macacol, desenvolvido pela Valencia Col, é um aplicativo de calculadora projetado para ser simples e seguro.</p>
+                    <h2>2. Dados do Usuário</h2>
+                    <p>Não coletamos, armazenamos ou compartilhamos dados pessoais, localização ou contatos do usuário.</p>
+                    <h2>3. Publicidade e Análise</h2>
+                    <p>Utilizamos serviços de terceiros (Google) para exibir publicidade e analisar o desempenho básico do app, cumprindo as normas de segurança.</p>
+                    <h2>4. Doações</h2>
+                    <p>As doações são voluntárias e processadas de forma externa e segura.</p>
+                `,
+                btn: "Voltar para a calculadora"
+            }
+        };
+
+        const t = isPT ? texts.pt : texts.es;
+        document.getElementById('poly-title').innerText = t.title;
+        document.getElementById('poly-content').innerHTML = t.content;
+        document.getElementById('poly-btn').innerText = t.btn;
+    </script>
 </body>
 </html>
