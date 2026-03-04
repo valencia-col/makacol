@@ -1,4 +1,4 @@
-const CACHE_NAME = 'macacol-v4'; // Cambia el número a v4 para forzar al celular a actualizar
+const CACHE_NAME = 'macacol-vfinal'; 
 const urlsToCache = [
   '/',
   'index.html',
