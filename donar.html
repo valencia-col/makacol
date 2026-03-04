@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apoie Macacol</title>
+    <title>Apoie Valencia Col</title>
     <style>
         body { background: #121212; color: white; font-family: 'Segoe UI', sans-serif; padding: 20px; text-align: center; }
         .container { max-width: 400px; margin: auto; }
         .card { background: #1e1e1e; padding: 20px; border-radius: 25px; border: 1px solid #f39c12; text-align: left; margin-top: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
         h2 { color: #f39c12; margin-bottom: 5px; }
-        h3 { color: #00b894; margin: 10px 0; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
-        .item-copiar { cursor: pointer; padding: 8px; border-radius: 10px; transition: background 0.2s; border-bottom: 1px solid #333; position: relative; }
-        .item-copiar:active { background: #333; }
-        .dato { color: #f39c12; font-weight: bold; font-size: 0.75rem; text-transform: uppercase; }
-        .valor { color: #fff; display: block; font-family: monospace; font-size: 0.95rem; margin-top: 4px; word-break: break-all; }
-        .copy-hint { font-size: 0.6rem; color: #666; float: right; }
+        h3 { color: #00b894; margin: 10px 0; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+        .mensaje-apoyo { font-size: 0.9rem; line-height: 1.4; color: #bbb; margin: 15px 0; min-height: 40px; }
+        .item-copiar { cursor: pointer; padding: 10px; border-radius: 12px; border-bottom: 1px solid #333; }
+        .dato { color: #f39c12; font-weight: bold; font-size: 0.7rem; text-transform: uppercase; }
+        .valor { color: #fff; display: block; font-family: monospace; font-size: 0.9rem; margin-top: 4px; word-break: break-all; }
+        .pix-box { background: #00b89422; border: 2px dashed #00b894; padding: 15px; border-radius: 15px; margin-top: 10px; cursor: pointer; text-align: center; }
         
-        .pix-box { background: #00b89422; border: 2px dashed #00b894; padding: 15px; border-radius: 15px; margin-top: 10px; cursor: pointer; }
-        .btn-volver { margin-top: 25px; background: #333; border: none; padding: 12px 30px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; width: 100%; }
-        
+        /* BOTÓN DE CORREO */
+        .btn-email { display: flex; align-items: center; justify-content: center; gap: 10px; background: #3498db; color: white; text-decoration: none; padding: 15px; border-radius: 20px; margin-top: 20px; font-weight: bold; font-size: 0.9rem; }
+        .btn-volver { margin-top: 15px; background: #444; border: none; padding: 12px; border-radius: 15px; color: white; font-weight: bold; cursor: pointer; width: 100%; }
         #toast { visibility: hidden; min-width: 200px; background-color: #f39c12; color: #000; text-align: center; border-radius: 10px; padding: 10px; position: fixed; z-index: 1; bottom: 30px; left: 50%; transform: translateX(-50%); font-weight: bold; }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
@@ -27,51 +27,79 @@
 </head>
 <body>
     <div class="container">
-        <h2>Apoie o Macacol ☕</h2>
-        <p style="border:none; opacity:0.8; font-size: 0.9rem;">Toque nos dados para copiar</p>
+        <h2 id="titulo">Valencia Col ☕</h2>
+        <p id="msg-apoyo" class="mensaje-apoyo"></p>
         
         <div class="card" style="border-color: #00b894;">
-            <h3 style="color: #00b894;"><span>📱</span> PIX/Celular (Brasil)</h3>
-            <div class="pix-box" onclick="copyText('99985009739', 'Chave PIX copiada!')">
-                <span class="dato">Chave PIX:</span>
+            <h3 id="txt-pix-title"><span>📱</span> PIX</h3>
+            <div class="pix-box" onclick="copyText('99985009739', 'Copiado!')">
+                <span class="dato">Chave PIX (Telefone):</span>
                 <span class="valor">99985009739</span>
-                <small style="color:#00b894; font-size:0.7rem;">Clique para copiar</small>
+                <small id="txt-copy-hint" style="color:#00b894; font-size:0.7rem; display:block; margin-top:5px;"></small>
             </div>
         </div>
 
         <div class="card">
-            <h3 style="color: #f39c12;"><span>🌐</span> Internacional</h3>
-            
-            <div class="item-copiar" onclick="copyText('TOPZBRRSXXX', 'Código SWIFT copiado!')">
-                <span class="copy-hint">COPIAR</span>
+            <h3 id="txt-intl-title"><span>🌐</span> Internacional</h3>
+            <div class="item-copiar" onclick="copyText('TOPZBRRSXXX', 'SWIFT Copiado!')">
                 <span class="dato">SWIFT Code:</span>
                 <span class="valor">TOPZBRRSXXX</span>
             </div>
-
-            <div class="item-copiar" onclick="copyText('BR4307679404000006388423930C1', 'IBAN copiado!')">
-                <span class="copy-hint">COPIAR</span>
+            <div class="item-copiar" onclick="copyText('BR4307679404000006388423930C1', 'IBAN Copiado!')">
                 <span class="dato">IBAN:</span>
                 <span class="valor">BR4307679404000006388423930C1</span>
             </div>
-
-            <div class="item-copiar" style="border:none;">
-                <span class="dato">Beneficiário:</span>
-                <span class="valor">Yolaimer Alonso Valencia Valencia</span>
-            </div>
         </div>
 
-        <button class="btn-volver" onclick="window.history.back()">Voltar para Calculadora</button>
+        <a id="btn-mail-link" href="mailto:valenciacolsolutions@gmail.com?subject=Sugestão/Ajuda Macacol" class="btn-email">
+            <span>✉️</span> <span id="txt-mail">Sugerências / Ajuda</span>
+        </a>
+
+        <button id="btn-back" class="btn-volver" onclick="window.history.back()"></button>
         <div id="toast">Copiado! ✅</div>
     </div>
 
     <script>
+        // TRADUCCIÓN AUTOMÁTICA SEGÚN EL IDIOMA DEL MÓVIL
+        const userLang = navigator.language || navigator.userLanguage;
+        const isPT = userLang.startsWith('pt');
+
+        const texts = {
+            es: {
+                apoyo: "Este proyecto se mantiene con amor. ¡Tu ayuda nos permite crear más herramientas gratuitas!",
+                pixTitle: "Apoyar vía PIX (Brasil)",
+                copyHint: "Toca para copiar",
+                intlTitle: "Internacional",
+                mail: "Sugerencias / Ayuda (Email)",
+                back: "Volver",
+                toast: "¡Copiado! ✅"
+            },
+            pt: {
+                apoyo: "Este projeto é mantido com amor. Sua contribuição ajuda a criar novas ferramentas gratuitas para todos!",
+                pixTitle: "Apoiar via PIX (Brasil)",
+                copyHint: "Toque para copiar",
+                intlTitle: "Internacional",
+                mail: "Sugestões / Ajuda (E-mail)",
+                back: "Voltar",
+                toast: "Copiado! ✅"
+            }
+        };
+
+        const t = isPT ? texts.pt : texts.es;
+
+        document.getElementById('msg-apoyo').innerText = t.apoyo;
+        document.getElementById('txt-pix-title').innerHTML = `<span>📱</span> ${t.pixTitle}`;
+        document.getElementById('txt-copy-hint').innerText = t.copyHint;
+        document.getElementById('txt-intl-title').innerHTML = `<span>🌐</span> ${t.intlTitle}`;
+        document.getElementById('txt-mail').innerText = t.mail;
+        document.getElementById('btn-back').innerText = t.back;
+
         function copyText(text, message) {
             navigator.clipboard.writeText(text).then(() => {
                 const toast = document.getElementById("toast");
-                toast.innerText = message;
+                toast.innerText = t.toast;
                 toast.className = "show";
                 setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
-                if (navigator.vibrate) navigator.vibrate(50);
             });
         }
     </script>
