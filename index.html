@@ -17,8 +17,21 @@
         body { background-color: #121212; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100vh; padding: 10px; color: white; }
         #mensaje-mico { color: #f39c12; font-weight: bold; height: 30px; margin-bottom: 8px; font-size: 1.1rem; transition: opacity 0.4s; opacity: 0; text-align: center; width: 100%; }
         .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 10px; border: 1px solid #333; }
-        .logo-container { text-align: center; margin-bottom: 10px; cursor: pointer; }
-        .logo-container img { width: 75px; height: 75px; border-radius: 50%; border: 3px solid #f39c12; }
+        /* Ajuste para que el área táctil sea pequeña y precisa */
+.logo-container { 
+    text-align: center; 
+    margin-bottom: 10px;
+    display: inline-block; /* Esto hace que el contenedor no ocupe todo el ancho */
+}
+
+.logo-container img { 
+    width: 75px; 
+    height: 75px; 
+    border-radius: 50%; 
+    border: 3px solid #f39c12; 
+    cursor: pointer; 
+    /* Solo la imagen será el botón */
+}
         .display-container { display: flex; flex-direction: column; align-items: flex-end; width: 100%; margin-bottom: 15px; padding: 0 10px; }
         #display { width: 100%; height: 60px; background: transparent; border: none; color: #f39c12; font-size: 3.5rem; text-align: right; outline: none; }
         #preview { color: #888; font-size: 1.2rem; height: 20px; text-align: right; margin-top: -5px; }
@@ -45,8 +58,8 @@
 <div id="mensaje-mico"></div>
 
 <div class="calculator">
-    <div class="logo-container" onclick="hablarMico()" ontouchstart="hablarMico()">
-    <img src="chimpance.jpg" alt="Macacol">
+    <div class="logo-container">
+    <img src="chimpance.jpg" alt="Macacol" onclick="hablarMico()" ontouchstart="hablarMico()">
     </div>
     <div class="display-container">
         <input type="text" id="display" readonly value="0">
