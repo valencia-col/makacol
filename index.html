@@ -95,17 +95,26 @@
     let ultimaFrase = -1;
 
     function hablarMico() {
-        const esPT = navigator.language.startsWith('pt');
-        const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
-        const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
-        const frases = esPT ? frasesPT : frasesES;
-        let indice;
-        do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
-        ultimaFrase = indice;
-        mensajeDiv.innerText = frases[indice];
-        mensajeDiv.style.opacity = 1;
-        if (navigator.vibrate) navigator.vibrate(30);
-        setTimeout(() => { mensajeDiv.style.opacity = 0; }, 2500);
+    const esPT = navigator.language.startsWith('pt');
+    const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
+    const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
+    const frases = esPT ? frasesPT : frasesES;
+    
+    let indice;
+    do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
+    ultimaFrase = indice;
+    
+    // Cambios para asegurar visibilidad inmediata
+    mensajeDiv.innerText = frases[indice];
+    mensajeDiv.style.transition = "none"; // Elimina la espera
+    mensajeDiv.style.opacity = "1"; // Muestra instantáneo
+    
+    if (navigator.vibrate) navigator.vibrate(30);
+    
+    // Ocultar tras 2 segundos
+    setTimeout(() => { 
+        mensajeDiv.style.opacity = "0"; 
+    }, 2000);
     }
 
     function updatePreview() {
