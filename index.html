@@ -107,28 +107,7 @@
     const mensajeDiv = document.getElementById('mensaje-mico');
     let ultimaFrase = -1;
 
-    function hablarMico() {
-    const esPT = navigator.language.startsWith('pt');
-    const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
-    const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
-    const frases = esPT ? frasesPT : frasesES;
     
-    let indice;
-    do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
-    ultimaFrase = indice;
-    
-    // Cambios para asegurar visibilidad inmediata
-    mensajeDiv.innerText = frases[indice];
-    mensajeDiv.style.transition = "none"; // Elimina la espera
-    mensajeDiv.style.opacity = "1"; // Muestra instantáneo
-    
-    if (navigator.vibrate) navigator.vibrate(30);
-    
-    // Ocultar tras 2 segundos
-    setTimeout(() => { 
-        mensajeDiv.style.opacity = "0"; 
-    }, 2000);
-    }
 
     function updatePreview() {
         try {
@@ -141,7 +120,28 @@
     }
 
     function appendToDisplay(value) {
-        if (navigator.vibrate) navigator.vibrate(40);
+        if (navigator.vibrate) navigator.vibratelet bloqueado = false; // Escudo protector
+
+function hablarMico() {
+    if (bloqueado) return; // Si estamos en "escudo", ignoramos el toque
+    bloqueado = true; // Activamos escudo
+    
+    // El resto de tu función de frases...
+    const esPT = navigator.language.startsWith('pt');
+    const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
+    const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
+    const frases = esPT ? frasesPT : frasesES;
+    
+    // ... lógica para elegir frase ...
+    mensajeDiv.innerText = frases[Math.floor(Math.random() * frases.length)];
+    mensajeDiv.style.opacity = "1";
+    
+    // Desactivamos el escudo después de 2.5 segundos
+    setTimeout(() => { 
+        mensajeDiv.style.opacity = "0"; 
+        bloqueado = false; 
+    }, 2500);
+}(40);
         if (display.value === '0') display.value = value;
         else display.value += value;
         ajustarFuente();
