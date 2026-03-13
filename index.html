@@ -104,51 +104,52 @@
 </div>
 
 <script>
+    // 1. Declaración de variables globales
     const display = document.getElementById('display');
     const preview = document.getElementById('preview');
     const mensajeDiv = document.getElementById('mensaje-mico');
     let ultimaFrase = -1;
+    let bloqueado = false; // El escudo protector va aquí arriba
 
-    
+    // 2. La función hablarMico solita
+    function hablarMico() {
+        if (bloqueado) return;
+        bloqueado = true;
+        
+        const esPT = navigator.language.startsWith('pt');
+        const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
+        const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
+        const frases = esPT ? frasesPT : frasesES;
+        
+        let indice;
+        do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
+        ultimaFrase = indice;
+        
+        mensajeDiv.innerText = frases[indice];
+        mensajeDiv.style.opacity = "1";
+        
+        if (navigator.vibrate) navigator.vibrate(30);
+        
+        setTimeout(() => { 
+            mensajeDiv.style.opacity = "0"; 
+            bloqueado = false; 
+        }, 2500);
+    }
 
+    // 3. Ahora sí, tus otras funciones sin interrupciones
     function updatePreview() {
-        try {
-            let val = display.value;
-            if (val === '0' || val === '' || !/[+*×/÷%−-]/.test(val)) { preview.innerText = ""; return; }
-            let operacion = val.replace(/×/g, '*').replace(/−/g, '-').replace(/÷/g, '/').replace(/%/g, '/100');
-            let res = eval(operacion);
-            if (res !== undefined && !isNaN(res)) { preview.innerText = "= " + Number(res.toFixed(4)); }
-        } catch (e) { preview.innerText = ""; }
+        // ... (tu código de updatePreview)
     }
 
     function appendToDisplay(value) {
-        if (navigator.vibrate) navigator.vibratelet bloqueado = false; // Escudo protector
-
-function hablarMico() {
-    if (bloqueado) return; // Si estamos en "escudo", ignoramos el toque
-    bloqueado = true; // Activamos escudo
-    
-    // El resto de tu función de frases...
-    const esPT = navigator.language.startsWith('pt');
-    const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
-    const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
-    const frases = esPT ? frasesPT : frasesES;
-    
-    // ... lógica para elegir frase ...
-    mensajeDiv.innerText = frases[Math.floor(Math.random() * frases.length)];
-    mensajeDiv.style.opacity = "1";
-    
-    // Desactivamos el escudo después de 2.5 segundos
-    setTimeout(() => { 
-        mensajeDiv.style.opacity = "0"; 
-        bloqueado = false; 
-    }, 2500);
-}(40);
+        if (navigator.vibrate) navigator.vibrate(40);
         if (display.value === '0') display.value = value;
         else display.value += value;
         ajustarFuente();
         updatePreview();
     }
+    
+    // ... y el resto de funciones igual ...
 
     function appendOperator(op) {
         if (navigator.vibrate) navigator.vibrate(40);
