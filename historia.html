@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuestra Historia</title>
+    <title id="page-title">Nuestra Historia</title>
     <style>
         body { font-family: sans-serif; background: #121212; color: white; padding: 20px; line-height: 1.6; display: flex; justify-content: center; }
         .container { max-width: 500px; width: 100%; }
@@ -14,13 +14,28 @@
 </head>
 <body>
     <div class="container">
-        <h1>Sobre Macacol y nuestra causa</h1>
-        <p>Macacol es un proyecto de emprendimiento tecnológico. Detrás de esta aplicación hay una meta personal: apoyar el tratamiento médico de Michelle.</p>
-        <p>Aquí puedes leer nuestra historia, ver los detalles de nuestra causa y cómo tu apoyo hace la diferencia:</p>
+        <h1 id="titulo">Sobre Macacol y nuestra causa</h1>
+        <p id="texto-1">Macacol es un proyecto de emprendimiento tecnológico. Detrás de esta aplicación hay una meta personal: apoyar el tratamiento medico y reconstrucción auditiva de Michelle.</p>
+        <p id="texto-2">Aquí puedes leer nuestra historia, ver los detalles de nuestra causa y cómo tu apoyo hace la diferencia:</p>
         
-        <a href="TU_ENLACE_DEL_GOOGLE_DOC_AQUI" target="_blank" class="btn-apoyo">Leer nuestra historia y apoyar</a>
+        <a href="TU_ENLACE_DEL_GOOGLE_DOC_AQUI" target="_blank" class="btn-apoyo" id="btn-leer">Leer nuestra historia y apoyar</a>
         
-        <a href="index.html" class="volver">← Volver a la calculadora</a>
+        <a href="index.html" class="volver" id="btn-volver">← Volver a la calculadora</a>
     </div>
+
+    <script>
+        window.onload = function() {
+            const esPT = navigator.language.startsWith('pt');
+            
+            if (esPT) {
+                document.getElementById('page-title').innerText = "Nossa História";
+                document.getElementById('titulo').innerText = "Sobre o Macacol e nossa causa";
+                document.getElementById('texto-1').innerText = "Macacol é um projeto de empreendedorismo tecnológico. Por trás deste aplicativo existe uma meta pessoal: apoiar o tratamento médico da Michelle.";
+                document.getElementById('texto-2').innerText = "Aqui você pode ler nossa história, ver os detalhes da nossa causa e como seu apoio faz a diferença:";
+                document.getElementById('btn-leer').innerText = "Ler nossa história e apoiar";
+                document.getElementById('btn-volver').innerText = "← Voltar à calculadora";
+            }
+        };
+    </script>
 </body>
 </html>
