@@ -90,8 +90,8 @@
     </div>
 </div>
 
-<a href="donar.html" class="donation-btn">
-    <span>☕</span> <span>Invítame un café / Me pague um café</span>
+<a href="historia.html" class="donation-btn" id="btn-historia">
+    <span id="btn-texto">Conoce nuestra historia</span>
 </a>
 
 <div class="ad-container">
@@ -115,68 +115,52 @@
     function hablarMico() {
         if (bloqueado) return;
         bloqueado = true;
-        
+<script>
+    // 1. Declaración de variables globales
+    const display = document.getElementById('display');
+    const preview = document.getElementById('preview');
+    const mensajeDiv = document.getElementById('mensaje-mico');
+    let ultimaFrase = -1;
+    let bloqueado = false;
+
+    // 2. Funciones de la calculadora
+    function hablarMico() {
+        if (bloqueado) return;
+        bloqueado = true;
         const esPT = navigator.language.startsWith('pt');
         const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
         const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
         const frases = esPT ? frasesPT : frasesES;
-        
         let indice;
         do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
         ultimaFrase = indice;
-        
         mensajeDiv.innerText = frases[indice];
         mensajeDiv.style.opacity = "1";
-        
         if (navigator.vibrate) navigator.vibrate(30);
-        
-        setTimeout(() => { 
-            mensajeDiv.style.opacity = "0"; 
-            bloqueado = false; 
-        }, 2500);
+        setTimeout(() => { mensajeDiv.style.opacity = "0"; bloqueado = false; }, 2500);
     }
 
-    // 3. Ahora sí, tus otras funciones sin interrupciones
     function updatePreview() {
         try {
             let val = display.value;
-            // Si el valor es '0' o no hay operadores, limpiamos la vista previa
-            if (val === '0' || val === '' || !/[+*×/÷%−-]/.test(val)) { 
-                preview.innerText = ""; 
-                return; 
-            }
-            // Reemplazamos los símbolos visuales por los que entiende JavaScript
+            if (val === '0' || val === '' || !/[+*×/÷%−-]/.test(val)) { preview.innerText = ""; return; }
             let operacion = val.replace(/×/g, '*').replace(/−/g, '-').replace(/÷/g, '/').replace(/%/g, '/100');
             let res = eval(operacion);
-            
-            // Si el resultado es válido, lo mostramos
-            if (res !== undefined && !isNaN(res)) { 
-                preview.innerText = "= " + Number(res.toFixed(4)); 
-            } else {
-                preview.innerText = "";
-            }
-        } catch (e) { 
-            preview.innerText = ""; 
-        }
+            if (res !== undefined && !isNaN(res)) { preview.innerText = "= " + Number(res.toFixed(4)); } else { preview.innerText = ""; }
+        } catch (e) { preview.innerText = ""; }
     }
     
-function appendToDisplay(value) {
+    function appendToDisplay(value) {
         if (navigator.vibrate) navigator.vibrate(40);
-        if (display.value === '0') {
-            display.value = value;
-        } else {
-            display.value += value;
-        }
+        if (display.value === '0') { display.value = value; } else { display.value += value; }
         ajustarFuente();
         updatePreview();
-}
+    }
 
     function appendOperator(op) {
         if (navigator.vibrate) navigator.vibrate(40);
         const lastChar = display.value.slice(-1);
-        if (['+','-','*','/','%','×','−','÷'].includes(lastChar)) {
-            display.value = display.value.slice(0, -1) + op;
-        } else { display.value += op; }
+        if (['+','-','*','/','%','×','−','÷'].includes(lastChar)) { display.value = display.value.slice(0, -1) + op; } else { display.value += op; }
         updatePreview();
     }
 
@@ -200,6 +184,15 @@ function appendToDisplay(value) {
         else if (largo > 8) display.style.fontSize = "2.5rem";
         else display.style.fontSize = "3.5rem";
     }
+
+    // 3. Lógica final (Idioma)
+    window.onload = function() {
+        const esPT = navigator.language.startsWith('pt');
+        const btnTexto = document.getElementById('btn-texto');
+        if (btnTexto) {
+            btnTexto.innerText = esPT ? "Conheça nossa história" : "Conoce nuestra historia";
+        }
+    };
 </script>
 </body>
 </html>
