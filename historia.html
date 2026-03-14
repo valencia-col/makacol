@@ -45,15 +45,25 @@
 
     <script>
         window.onload = function() {
-            const esPT = navigator.language.startsWith('pt');
+            const lang = navigator.language;
             
-            if (esPT) {
+            if (lang.startsWith('pt')) {
+                // Versión en Portugués
                 document.getElementById('page-title').innerText = "Nossa História";
                 document.getElementById('titulo').innerText = "Sobre o Macacol e nossa causa";
                 document.getElementById('texto-1').innerText = "Macacol é um projeto de empreendedorismo tecnológico. Por trás deste aplicativo existe uma meta pessoal: apoiar o tratamento médico da Michelle.";
                 document.getElementById('texto-2').innerText = "Aqui você pode ler nossa história, ver os detalhes da nossa causa e como seu apoio faz a diferença:";
                 document.getElementById('btn-leer').innerText = "Ler nossa história e apoiar";
                 document.getElementById('btn-volver').innerText = "← Voltar à calculadora";
+            } 
+            else if (lang.startsWith('en')) {
+                // Versión en Inglés
+                document.getElementById('page-title').innerText = "Our Story";
+                document.getElementById('titulo').innerText = "About Macacol and our cause";
+                document.getElementById('texto-1').innerText = "Macacol is a technological entrepreneurship project. Behind this app, there is a personal goal: to support Michelle's medical treatment.";
+                document.getElementById('texto-2').innerText = "Here you can read our story, see the details of our cause, and how your support makes a difference:";
+                document.getElementById('btn-leer').innerText = "Read our story and support";
+                document.getElementById('btn-volver').innerText = "← Back to calculator";
             }
         };
     </script>
