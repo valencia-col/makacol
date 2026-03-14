@@ -160,7 +160,16 @@
         }
     }
     
-    // ... y el resto de funciones igual ...
+function appendToDisplay(value) {
+        if (navigator.vibrate) navigator.vibrate(40);
+        if (display.value === '0') {
+            display.value = value;
+        } else {
+            display.value += value;
+        }
+        ajustarFuente();
+        updatePreview();
+}..
 
     function appendOperator(op) {
         if (navigator.vibrate) navigator.vibrate(40);
