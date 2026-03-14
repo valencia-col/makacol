@@ -138,15 +138,26 @@
 
     // 3. Ahora sí, tus otras funciones sin interrupciones
     function updatePreview() {
-        // ... (tu código de updatePreview)
-    }
-
-    function appendToDisplay(value) {
-        if (navigator.vibrate) navigator.vibrate(40);
-        if (display.value === '0') display.value = value;
-        else display.value += value;
-        ajustarFuente();
-        updatePreview();
+        try {
+            let val = display.value;
+            // Si el valor es '0' o no hay operadores, limpiamos la vista previa
+            if (val === '0' || val === '' || !/[+*×/÷%−-]/.test(val)) { 
+                preview.innerText = ""; 
+                return; 
+            }
+            // Reemplazamos los símbolos visuales por los que entiende JavaScript
+            let operacion = val.replace(/×/g, '*').replace(/−/g, '-').replace(/÷/g, '/').replace(/%/g, '/100');
+            let res = eval(operacion);
+            
+            // Si el resultado es válido, lo mostramos
+            if (res !== undefined && !isNaN(res)) { 
+                preview.innerText = "= " + Number(res.toFixed(4)); 
+            } else {
+                preview.innerText = "";
+            }
+        } catch (e) { 
+            preview.innerText = ""; 
+        }
     }
     
     // ... y el resto de funciones igual ...
