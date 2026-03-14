@@ -109,18 +109,6 @@
     const preview = document.getElementById('preview');
     const mensajeDiv = document.getElementById('mensaje-mico');
     let ultimaFrase = -1;
-    let bloqueado = false; // El escudo protector va aquí arriba
-
-    // 2. La función hablarMico solita
-    function hablarMico() {
-        if (bloqueado) return;
-        bloqueado = true;
-<script>
-    // 1. Declaración de variables globales
-    const display = document.getElementById('display');
-    const preview = document.getElementById('preview');
-    const mensajeDiv = document.getElementById('mensaje-mico');
-    let ultimaFrase = -1;
     let bloqueado = false;
 
     // 2. Funciones de la calculadora
@@ -185,7 +173,7 @@
         else display.style.fontSize = "3.5rem";
     }
 
-    // 3. Lógica final (Idioma)
+    // 3. Lógica de inicio
     window.onload = function() {
         const esPT = navigator.language.startsWith('pt');
         const btnTexto = document.getElementById('btn-texto');
