@@ -1,9 +1,9 @@
 const CACHE_NAME = 'macacol-vfinal'; 
 const urlsToCache = [
-  '/',
+  './',
   'index.html',
   'manifest.json',
-  'chimpance.jpg'
+  'chimpance.jpg',
   'historia.html'
 ];
 
