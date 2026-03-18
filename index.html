@@ -181,6 +181,10 @@
             btnTexto.innerText = esPT ? "Conheça nossa história" : "Conoce nuestra historia";
         }
     };
+    // EL SEGURO DE VIDA PARA FUNCIONAR SIN INTERNET (No toca nada de arriba)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+                                               }
 </script>
 </body>
 </html>
