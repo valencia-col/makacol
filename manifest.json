@@ -1,7 +1,7 @@
 {
   "name": "Chimpance Calc",
   "short_name": "Macacol",
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#ff9800",
