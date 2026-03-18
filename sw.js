@@ -2,10 +2,9 @@ const CACHE_NAME = 'macacol-vfinal';
 const urlsToCache = [
   '/',
   'index.html',
-  'donar.html',
-  'privacidad.html',
   'manifest.json',
   'chimpance.jpg'
+  'historia.html'
 ];
 
 self.addEventListener('install', event => {
