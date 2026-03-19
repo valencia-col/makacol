@@ -62,7 +62,7 @@
 
 <div class="calculator">
     <div class="logo-container">
-    <img src="./chimpance.jpg" alt="Macacol" onclick="hablarMico()" ontouchstart="hablarMico()" style="cursor: pointer;">
+    <img src="chimpance.jpg" alt="Macacol" onclick="hablarMico()" ontouchstart="hablarMico()" style="cursor: pointer;">
     </div>
     <div class="display-container">
         <input type="text" id="display" readonly value="0">
@@ -184,7 +184,7 @@
     };
     // EL SEGURO DE VIDA PARA FUNCIONAR SIN INTERNET (No toca nada de arriba)
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
+      navigator.serviceWorker.register('sw.js');
                                                }
 </script>
 </body>
