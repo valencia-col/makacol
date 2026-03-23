@@ -1,13 +1,15 @@
-const CACHE_NAME = 'macacol-v-marzo-20'; 
+const CACHE_NAME = 'macacol-v-marzo-23-final'; // Cambié el nombre para forzar el cambio
 const urlsToCache = [
+  './',
   'index.html',
   'manifest.json',
   'chimpance.jpg',
   'historia.html'
 ];
 
-// 1. Instalar y guardar archivos en el celular
+// 1. Instalar y limpiar archivos viejos
 self.addEventListener('install', event => {
+  self.skipWaiting(); // Esto obliga al nuevo Service Worker a activarse de inmediato
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(urlsToCache);
@@ -15,13 +17,28 @@ self.addEventListener('install', event => {
   );
 });
 
-// 2. LA LLAVE: Esta parte es la que hace que funcione en la vereda
+// 2. Borrar el caché viejo (ESTO ES LO QUE TE FALTA)
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            console.log('Borrando caché viejo de Valencia Col...');
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
+});
+
+// 3. Estrategia: Primero buscar en Internet, si no hay, usar el Caché
+// Esto es mejor para cuando haces cambios de diseño como el del mico
 self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then(response => {
-      // Si el archivo está en la memoria del celular, lo entrega DE UNA VEZ
-      // Si no está, ahí sí va y busca internet
-      return response || fetch(event.request);
+    fetch(event.request).catch(() => {
+      return caches.match(event.request);
     })
   );
 });
