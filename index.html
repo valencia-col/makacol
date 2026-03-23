@@ -20,11 +20,13 @@
         .calculator { background-color: #1e1e1e; width: 100%; max-width: 340px; padding: 25px; border-radius: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.9); margin-bottom: 10px; border: 1px solid #333; }
         /* Ajuste para que el área táctil sea pequeña y precisa */
 .logo-container { 
-    text-align: center; /* Esto centra todo lo que esté adentro horizontalmente */
+    text-align: center;
     margin-bottom: 10px;
-    width: 100%;        /* Esto obliga a que el contenedor ocupe todo el ancho */
-    display: flex;      /* Usamos flexbox para centrar de forma profesional */
-    justify-content: center; /* Centrado horizontal */
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Esto pone el mensaje DEBAJO del mico */
+    align-items: center;    /* Esto centra al mico y al mensaje horizontalmente */
+    justify-content: center;
 }
 
 .logo-container img { 
@@ -57,8 +59,6 @@
     </style>
 </head>
 <body>
-
-<div id="mensaje-mico"></div>
 
 <div class="calculator">
     <div class="logo-container">
