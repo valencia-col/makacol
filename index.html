@@ -131,6 +131,10 @@
         const esPT = navigator.language.startsWith('pt');
         const frasesES = ["¡Eres un genio!", "¡Suma victorias!", "¡Macacol te apoya!", "¡Hoy ganarás!", "¡Valencia Col innova!", "¡Sigue adelante!", "¡Potencial infinito!"];
         const frasesPT = ["Você é um gênio!", "Some vitórias!", "Macacol te apoia!", "Hoje você ganha!", "Valencia Col inova!", "Siga em frente!", "Potencial infinito!"];
+        const frasesEN = ["You're a genius!", "Sum victories!", "Macacol supports you!", "Today you win!", "Infinite potential!"];
+// Y luego en la lógica de selección de idioma:
+const esEN = navigator.language.startsWith('en');
+// etc...
         const frases = esPT ? frasesPT : frasesES;
         let indice;
         do { indice = Math.floor(Math.random() * frases.length); } while (indice === ultimaFrase);
