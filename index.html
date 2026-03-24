@@ -72,9 +72,13 @@
 
 <div class="calculator">
     <div class="logo-container" style="text-align: center; margin-bottom: 5px;">
-    <div id="mensaje-mico" style="color: #f39c12; font-weight: bold; font-size: 1.1rem; height: 25px; margin-bottom: 2px; opacity: 0; transition: opacity 0.4s;"></div>
-    
-    <img src="chimpance.jpg" alt="Macacol" onclick="hablarMico()" ontouchstart="hablarMico()" style="width: 70px; height: 70px; border-radius: 50%; border: 3px solid #f39c12; cursor: pointer;">
+        <div id="mensaje-mico" style="color: #f39c12; font-weight: bold; height: 20px; font-size: 0.9rem; opacity: 0; transition: opacity 0.4s;"></div>
+        <img src="chimpance.jpg" alt="Macacol" onclick="hablarMico()" ontouchstart="hablarMico()" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #f39c12; cursor: pointer;">
+    </div>
+
+    <div class="display-container" style="background: rgba(0,0,0,0.2); border-radius: 10px; padding: 10px; margin-bottom: 10px;">
+        <input type="text" id="display" readonly value="0" style="width: 100%; border: none; background: transparent; color: #f39c12; text-align: right; font-size: 2.5rem;">
+        <div id="preview" style="text-align: right; color: #888; height: 20px;"></div> 
     </div>
     <div class="buttons">
         <button class="clear" onclick="clearDisplay()">C</button>
