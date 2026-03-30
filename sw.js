@@ -33,12 +33,13 @@ self.addEventListener('activate', event => {
   );
 });
 
-// 3. Estrategia: Primero buscar en Internet, si no hay, usar el Caché
-// Esto es mejor para cuando haces cambios de diseño como el del mico
+// PUNTO 3: EL QUE NO DA VUELTAS
 self.addEventListener('fetch', event => {
   event.respondWith(
-    fetch(event.request).catch(() => {
-      return caches.match(event.request);
+    caches.match(event.request).then(response => {
+      // Si está en el bolsillo (caché), lo entrega YA.
+      // Si no está (fetch), va a la oficina (internet).
+      return response || fetch(event.request);
     })
   );
 });
