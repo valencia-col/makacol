@@ -1,6 +1,5 @@
 const CACHE_NAME = 'macacol-v-marzo-23-final'; // Cambié el nombre para forzar el cambio
 const urlsToCache = [
-  './',
   'index.html',
   'manifest.json',
   'chimpance.jpg',
