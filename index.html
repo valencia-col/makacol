@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7QEGYFKYQD"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -198,10 +203,7 @@ const esEN = navigator.language.startsWith('en');
             btnTexto.innerText = esPT ? "Conheça nossa história" : "Conoce nuestra historia";
         }
     };
-    // EL SEGURO DE VIDA PARA FUNCIONAR SIN INTERNET (No toca nada de arriba)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-                                               }
+    
 </script>
 </body>
 </html>
