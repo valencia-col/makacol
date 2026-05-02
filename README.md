@@ -1,20 +1,17 @@
-Macacol: Calculadora Básica
-Esta es una aplicación de calculadora sencilla, rápida y eficiente, diseñada para facilitar tus operaciones matemáticas diarias.
+Valencia Col - Macacol (Calculadora Básica)
+Uma ferramenta simples, rápida e eficiente desenvolvida pela Valencia Col para facilitar as operações matemáticas do dia a dia.
 
-Características
-Operaciones básicas: Suma, resta, multiplicación, división, porcentaje.
+🚀 Status do Projeto
+A aplicação já está disponível e operacional. Este repositório contém o código-fonte e a documentação técnica necessária.
 
-Diseño limpio: Enfocado en la facilidad de uso para el día a día.
+⚖️ Informações Legais
+Para garantir a transparência com nossos usuários, você pode acessar nossa documentação legal centralizada aqui:
 
-Tecnologías utilizadas
-HTML5
+Política de Privacidade: Centro de Privacidade Valencia Col.
 
-CSS3
+🛠️ Tecnologias Utilizadas
+HTML5 / CSS3
 
-Javascript 
+JavaScript (Lógica de cálculo local)
 
-Nota sobre el funcionamiento
-Esta aplicación está diseñada para ser una herramienta ligera y rápida. Por el momento, la calculadora funciona en tiempo real y no almacena un historial de operaciones, garantizando así la privacidad y sencillez que buscamos.
-
-¿Cómo instalar?
-(Disponible próximamente en Google Play Store")
+Google AdMob (Sustentabilidade do projeto)
