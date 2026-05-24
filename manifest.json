@@ -3,6 +3,7 @@
   "short_name": "Macacol",
   "description": "Calculadora rápida e simples com o apoio do Macacol. Operações matemáticas básicas com design limpo e fácil de usar. Perfeita para o dia a dia.",
   "start_url": "index.html",
+  "id": "/",
   "display": "standalone",
   "background_color": "#121212",
   "theme_color": "#ff9800",
