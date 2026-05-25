@@ -19,14 +19,7 @@
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "screenshot1.jpg",
-      "sizes": "1080x1920",
-      "type": "image/jpeg"
+      "purpose": "any maskable"
     }
   ]
 }
